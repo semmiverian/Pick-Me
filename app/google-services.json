@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "675313142627",
+    "firebase_url": "https://horas-halak-hita.firebaseio.com",
+    "project_id": "horas-halak-hita",
+    "storage_bucket": "horas-halak-hita.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675313142627:android:3131f237fb1501e6",
+        "android_client_info": {
+          "package_name": "com.creative.sada.h3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675313142627-6uh9ou6a0inkol7rdph3btvjtcg8lcda.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQUITgF03aA8Em8jPvDSwT0mKedfIPjl0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675313142627:android:fc4f5dd85592bdbe",
+        "android_client_info": {
+          "package_name": "id.semmi.pickme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675313142627-52nlrq4ndv8dsg4lctnbkn5edrnddkti.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.semmi.pickme",
+            "certificate_hash": "9de203eabdfcd27483a20d5427f78133aca2a003"
+          }
+        },
+        {
+          "client_id": "675313142627-6uh9ou6a0inkol7rdph3btvjtcg8lcda.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQUITgF03aA8Em8jPvDSwT0mKedfIPjl0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675313142627-6uh9ou6a0inkol7rdph3btvjtcg8lcda.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Pick Me</string>
+    <string name="create_new_account">Create new Account</string>
+    <string name="web_client_id">675313142627-6uh9ou6a0inkol7rdph3btvjtcg8lcda.apps.googleusercontent.com</string>
 </resources>
