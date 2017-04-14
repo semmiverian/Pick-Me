@@ -2,4 +2,7 @@
     <string name="app_name">Pick Me</string>
     <string name="create_new_account">Create new Account</string>
     <string name="web_client_id">675313142627-6uh9ou6a0inkol7rdph3btvjtcg8lcda.apps.googleusercontent.com</string>
+    <string name="enter_your_email">Enter Your Email</string>
+    <string name="enter_your_password">Enter Your Password</string>
+    <string name="title_activity_register">RegisterActivity</string>
 </resources>
