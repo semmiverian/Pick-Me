@@ -22,9 +22,12 @@ import id.semmi.pickme.dagger.PickMeApplication;
 
 public class LoginPresenterImpl implements LoginPresenter {
     private LoginView loginView;
+    private LoginRepository loginRepository;
 
-    public LoginPresenterImpl() {
 
+    public LoginPresenterImpl(LoginRepository loginRepository) {
+
+        this.loginRepository = loginRepository;
     }
 
     @Override
@@ -42,6 +45,7 @@ public class LoginPresenterImpl implements LoginPresenter {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 loginView.onSuccessLoggedIn(acct.getDisplayName());
+                                loginRepository.save();
 
                                 if (!task.isSuccessful()) {
                                     loginView.showErrorMessage();

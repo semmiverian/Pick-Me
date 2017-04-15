@@ -7,6 +7,7 @@ package id.semmi.pickme.register;
 public interface RegisterView {
     String getEmailAdress();
     String getPassword();
-    void showErrorMessage();
+    String getName();
+    void showErrorMessage(String message);
     void onSuccessLoggedIn();
 }

@@ -4,16 +4,21 @@ import android.app.Application;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import id.semmi.pickme.DialogHelper;
 import id.semmi.pickme.R;
 import id.semmi.pickme.login.LoginPresenter;
 import id.semmi.pickme.login.LoginPresenterImpl;
+import id.semmi.pickme.login.LoginRepository;
 import id.semmi.pickme.register.RegisterPresenter;
 import id.semmi.pickme.register.RegisterPresenterImpl;
+import id.semmi.pickme.register.RegisterRepository;
 
 /**
  * Created by Semmiverian on 4/14/17.
@@ -41,12 +46,32 @@ public class ApplicationModule {
     }
 
     @Provides
-    public LoginPresenter loginPresenter () {
-        return new LoginPresenterImpl();
+    public DatabaseReference firebaseDatabaseReference () {
+        return FirebaseDatabase.getInstance().getReference();
     }
 
     @Provides
-    public RegisterPresenter registerPresenter (FirebaseAuth firebaseAuth) {
-        return new RegisterPresenterImpl(firebaseAuth);
+    public RegisterRepository registerRepository (FirebaseAuth firebaseAuth, DatabaseReference databaseReference) {
+        return new RegisterRepository(firebaseAuth, databaseReference);
+    }
+
+    @Provides
+    public LoginRepository loginRepository (FirebaseAuth firebaseAuth, DatabaseReference databaseReference) {
+        return new LoginRepository(firebaseAuth, databaseReference);
+    }
+
+    @Provides @Singleton
+    public DialogHelper dialogHelper () {
+        return new DialogHelper(application.getApplicationContext());
+    }
+
+    @Provides
+    public LoginPresenter loginPresenter (LoginRepository loginRepository) {
+        return new LoginPresenterImpl(loginRepository);
+    }
+
+    @Provides
+    public RegisterPresenter registerPresenter (FirebaseAuth firebaseAuth, RegisterRepository registerRepository) {
+        return new RegisterPresenterImpl(firebaseAuth, registerRepository);
     }
 }

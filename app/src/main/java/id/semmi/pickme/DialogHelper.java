@@ -1,0 +1,60 @@
+package id.semmi.pickme;
+
+import android.content.Context;
+
+import com.afollestad.materialdialogs.MaterialDialog;
+
+/**
+ * Created by Semmiverian on 4/15/17.
+ */
+
+public class DialogHelper {
+    private Context context;
+
+    public DialogHelper(Context context) {
+        this.context = context;
+    }
+
+    public void singlePositiveDialog(String title, String content, String buttonText,MaterialDialog.SingleButtonCallback callback){
+        new MaterialDialog.Builder(context)
+                .title(title)
+                .content(content)
+                .positiveText(buttonText)
+                .positiveColorRes(R.color.colorAccent)
+                .onPositive(callback)
+                .show();
+    }
+
+    public void positiveAndNegativeDialog(String title, String content, String buttonPositiveText, String buttonNegativeText, MaterialDialog.SingleButtonCallback callbackPositive, MaterialDialog.SingleButtonCallback callbackNegative){
+        new MaterialDialog.Builder(context)
+                .title(title)
+                .content(content)
+                .positiveText(buttonPositiveText)
+                .negativeText(buttonNegativeText)
+                .positiveColorRes(R.color.colorAccent)
+                .negativeColorRes(R.color.colorAccent)
+                .onPositive(callbackPositive)
+                .onNegative(callbackNegative)
+                .show();
+    }
+
+    public MaterialDialog loadingDialog(String title,String content){
+        return new MaterialDialog.Builder(context)
+                .title(title)
+                .content(content)
+                .progress(true, 0)
+                .widgetColorRes(R.color.colorAccent)
+                .show();
+    }
+
+    public void listDialog(String title, String[] items, MaterialDialog.SingleButtonCallback callbackPositive) {
+        new MaterialDialog.Builder(context)
+                .title(title)
+                .items(items)
+                .widgetColorRes(R.color.colorAccent)
+                .positiveColorRes(R.color.colorPrimary)
+                .positiveText("Ok")
+                .onPositive(callbackPositive)
+                .show();
+    }
+}

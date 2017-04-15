@@ -3,7 +3,6 @@ package id.semmi.pickme.register;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -16,11 +15,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterPresenterImpl implements RegisterPresenter {
     private RegisterView mView;
-
     private FirebaseAuth mFirebaseAuth;
+    private RegisterRepository registerRepository;
 
-    public RegisterPresenterImpl(FirebaseAuth firebaseAuth) {
+    public RegisterPresenterImpl(FirebaseAuth firebaseAuth, RegisterRepository registerRepository) {
         this.mFirebaseAuth = firebaseAuth;
+        this.registerRepository = registerRepository;
     }
 
     @Override
@@ -35,23 +35,21 @@ public class RegisterPresenterImpl implements RegisterPresenter {
 
     @Override
     public void register(Activity activity) {
-        if (TextUtils.isEmpty(mView.getEmailAdress()) || TextUtils.isEmpty(mView.getPassword()))  {
-            mView.showErrorMessage();
+        if (TextUtils.isEmpty(mView.getEmailAdress()) || TextUtils.isEmpty(mView.getPassword()) || TextUtils.isEmpty(mView.getName()))  {
+            mView.showErrorMessage("Please Fill All Field");
             return;
         }
-
-        Log.d("aaa", "register: " + mView.getEmailAdress());
-        Log.d("aaa", "register: " + mView.getPassword());
 
         mFirebaseAuth.createUserWithEmailAndPassword(mView.getEmailAdress(), mView.getPassword())
              .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                  @Override
                  public void onComplete(@NonNull Task<AuthResult> task) {
-                     mView.onSuccessLoggedIn();
                      if (!task.isSuccessful()) {
-                         Log.d("aaa", "onComplete: " + task.getException());
-                         mView.showErrorMessage();
+                         mView.showErrorMessage(task.getException().getMessage());
+                        return;
                      }
+                     mView.onSuccessLoggedIn();
+                     registerRepository.setDisplayName(mView.getName());
                  }
              });
 
