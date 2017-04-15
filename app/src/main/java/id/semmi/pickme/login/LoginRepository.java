@@ -1,6 +1,7 @@
 package id.semmi.pickme.login;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -26,5 +27,10 @@ public class LoginRepository {
 
         databaseReference.child("users/" + user.getUid())
                 .setValue(new User(user.getDisplayName(), user.getUid(), user.getEmail()));
+    }
+
+    public void authenticated(String email, String password, OnCompleteListener listener) {
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(listener);
     }
 }

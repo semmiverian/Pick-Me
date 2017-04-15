@@ -17,4 +17,5 @@ public interface LoginPresenter extends BasicPresenter {
     void setView(LoginView view);
     void handleLoggedInResult (GoogleSignInResult googleSignInResult, FirebaseAuth firebaseAuth, Activity activity);
     void handleAuthStateChange (FirebaseUser firebaseUser);
+    void handleUserLogIn();
 }

@@ -6,7 +6,9 @@ package id.semmi.pickme.login;
  */
 
 public interface LoginView {
-    void showErrorMessage();
+    void showErrorMessage(String message);
     void onSuccessLoggedIn(String loggedInName);
     void showAlreadyLoggedInMessage(String loggedInName);
+    String getEmail();
+    String getPassword();
 }

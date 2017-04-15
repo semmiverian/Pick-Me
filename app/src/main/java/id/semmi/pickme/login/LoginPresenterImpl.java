@@ -2,6 +2,7 @@ package id.semmi.pickme.login;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -13,6 +14,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import org.w3c.dom.Text;
 
 import id.semmi.pickme.dagger.PickMeApplication;
 
@@ -48,12 +51,12 @@ public class LoginPresenterImpl implements LoginPresenter {
                                 loginRepository.save();
 
                                 if (!task.isSuccessful()) {
-                                    loginView.showErrorMessage();
+                                    loginView.showErrorMessage(task.getException().getMessage());
                                 }
                             }
                         });
         } else {
-            this.loginView.showErrorMessage();
+            this.loginView.showErrorMessage(googleSignInResult.getStatus().toString());
         }
     }
 
@@ -61,11 +64,29 @@ public class LoginPresenterImpl implements LoginPresenter {
     @Override
     public void handleAuthStateChange(FirebaseUser firebaseUser) {
         if (firebaseUser != null) {
-            Log.d("aaa", "handleAuthStateChange: " +firebaseUser.getDisplayName());
             loginView.onSuccessLoggedIn(firebaseUser.getDisplayName());
         } else {
-            this.loginView.showErrorMessage();
+            this.loginView.showErrorMessage("Sign Out");
         }
+    }
+
+    @Override
+    public void handleUserLogIn() {
+        if (TextUtils.isEmpty(loginView.getEmail()) || TextUtils.isEmpty(loginView.getPassword())) {
+            loginView.showErrorMessage("Please Fill all the field");
+            return;
+        }
+
+        loginRepository.authenticated(loginView.getEmail(), loginView.getPassword(), new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if (!task.isSuccessful()) {
+                    loginView.showErrorMessage(task.getException().getMessage());
+                    return;
+                }
+                loginView.onSuccessLoggedIn(loginView.getEmail());
+            }
+        });
     }
 
     @Override
