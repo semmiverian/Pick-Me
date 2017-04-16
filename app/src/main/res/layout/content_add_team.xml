@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grayish"
+    android:padding="16dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".team.addteam.AddTeamActivity"
+    tools:showIn="@layout/activity_add_team">
+
+    <android.support.v7.widget.AppCompatEditText
+        style="@style/margin"
+        android:id="@+id/team_name_input"
+        android:padding="10dp"
+        android:hint="@string/input_your_team_name"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <android.support.v7.widget.AppCompatEditText
+        style="@style/margin.top"
+        android:id="@+id/description_input"
+        android:layout_below="@id/team_name_input"
+        android:padding="10dp"
+        android:hint="@string/tell_us_about_this_team"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description_input"
+        android:text="@string/invite_your_friends"
+        style="@style/margin.top"
+        android:textSize="18sp"
+        android:id="@+id/inviteText"
+        />
+
+    <com.pchmn.materialchips.ChipsInput
+        android:id="@+id/chips_input"
+        android:layout_below="@+id/inviteText"
+        style="@style/margin.top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="Enter a name"
+        app:maxRows="3" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/chip_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        tools:text="aa"
+        android:layout_centerInParent="true"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/create_team_button"
+        style="@style/margin.top"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:text="@string/create_my_team"
+        android:textColor="@color/white"
+    />
+
+
+</RelativeLayout>

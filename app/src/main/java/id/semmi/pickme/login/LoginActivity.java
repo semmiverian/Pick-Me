@@ -27,6 +27,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import id.semmi.pickme.DialogHelper;
 import id.semmi.pickme.R;
+import id.semmi.pickme.team.addteam.AddTeamActivity;
 import id.semmi.pickme.dagger.PickMeApplication;
 import id.semmi.pickme.register.RegisterActivity;
 
@@ -55,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         ((PickMeApplication) getApplication()).getApplicationComponent().inject(this);
         setContentView(R.layout.activity_login);
         // TEMPORARY
-        FirebaseAuth.getInstance().signOut();
+//        FirebaseAuth.getInstance().signOut();
         unbinder = ButterKnife.bind(this);
         dialogHelper = new DialogHelper(this);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -141,9 +142,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     public void onSuccessLoggedIn(String loggedInName) {
         // go to the next activity
-        if (materialDialog.isShowing()) {
+        if (materialDialog != null && materialDialog.isShowing()) {
             materialDialog.dismiss();
         }
+
+        Intent nextActivity = new Intent(this, AddTeamActivity.class);
+        startActivity(nextActivity);
 
         Log.d(TAG, "onSuccessLoggedIn: " + loggedInName);
         Toast.makeText(this, "Logged In as " + loggedInName, Toast.LENGTH_SHORT).show();

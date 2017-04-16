@@ -1,5 +1,8 @@
 package id.semmi.pickme.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Semmiverian on 4/15/17.
  */
@@ -42,6 +45,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Map<String, Object> userToMap () {
+        Map<String, Object> maps = new HashMap<>();
+        maps.put("uuid", getUuid());
+        maps.put("name", getName());
+        maps.put("email", getEmail());
+        return maps;
     }
 
 }
