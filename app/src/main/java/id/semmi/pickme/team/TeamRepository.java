@@ -38,11 +38,13 @@ public class TeamRepository {
 
     public void createAndSendInvitation(String name, String description, List<UserChip> userChips, OnCompleteListener listener, OnFailureListener listenerError) {
         String key = databaseReference.child("teams").push().getKey();
+        String currentUserId = firebaseAuth.getCurrentUser().getUid();
         Invitation invitation = new Invitation(name, description);
         Team team = new Team(name, description);
         Map<String, Object> userMap = new HashMap<>();
 
         databaseReference.child("teams/" + key).setValue(team);
+        userMap.put("/users/" + currentUserId + "/teams/" + key, team);
 
         for (UserChip userChip : userChips) {
             String notificationKey = databaseReference.child("notifications/" + userChip.getUuid()).push().getKey();
