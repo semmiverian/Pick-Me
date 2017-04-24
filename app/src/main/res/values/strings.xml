@@ -11,4 +11,5 @@
     <string name="tell_us_about_this_team">Tell us About this team</string>
     <string name="invite_your_friends">Invite your Friends</string>
     <string name="create_my_team">Create My Team</string>
+    <string name="title_activity_team_list">TeamList</string>
 </resources>

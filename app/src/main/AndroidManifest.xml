@@ -24,6 +24,10 @@
         <activity
             android:name=".team.addteam.AddTeamActivity"
             android:label="@string/title_activity_add_team"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".team.list.TeamListActivity"
+            android:label="@string/title_activity_team_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

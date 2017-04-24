@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/grayish"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardBackgroundColor="@color/white"
+        android:layout_centerInParent="true"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="2dp">
+
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            >
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/team_icon"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                style="@style/margin.all"
+                android:background="@drawable/team"
+                />
+
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_toEndOf="@+id/team_icon"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/team_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="My Super Team"
+                    android:fontFamily="sans-serif"
+                    android:layout_marginBottom="7dp"
+                    />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/team_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/team_name"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="italic"
+                    android:text="16 Votes 4 Attendance 10 Members"
+                    />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/leave_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leave Team"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@+id/linear"
+                android:layout_margin="7dp"
+                />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

@@ -30,6 +30,7 @@ import id.semmi.pickme.R;
 import id.semmi.pickme.team.addteam.AddTeamActivity;
 import id.semmi.pickme.dagger.PickMeApplication;
 import id.semmi.pickme.register.RegisterActivity;
+import id.semmi.pickme.team.list.TeamListActivity;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, LoginView {
     private static final int RC_SIGN_IN = 13112;
@@ -146,7 +147,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             materialDialog.dismiss();
         }
 
-        Intent nextActivity = new Intent(this, AddTeamActivity.class);
+        Intent nextActivity = new Intent(this, TeamListActivity.class);
         startActivity(nextActivity);
 
         Log.d(TAG, "onSuccessLoggedIn: " + loggedInName);

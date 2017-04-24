@@ -22,6 +22,8 @@ import id.semmi.pickme.register.RegisterRepository;
 import id.semmi.pickme.team.TeamRepository;
 import id.semmi.pickme.team.addteam.AddTeamPresenter;
 import id.semmi.pickme.team.addteam.AddTeamPresenterImpl;
+import id.semmi.pickme.team.list.TeamPresenter;
+import id.semmi.pickme.team.list.TeamPresenterImpl;
 
 /**
  * Created by Semmiverian on 4/14/17.
@@ -86,5 +88,10 @@ public class ApplicationModule {
     @Provides
     public AddTeamPresenter addTeamPresenter (FirebaseAuth firebaseAuth, TeamRepository teamRepository) {
         return new AddTeamPresenterImpl(firebaseAuth, teamRepository);
+    }
+
+    @Provides
+    public TeamPresenter teamPresenter (TeamRepository teamRepository) {
+        return new TeamPresenterImpl(teamRepository);
     }
 }

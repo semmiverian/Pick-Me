@@ -61,4 +61,10 @@ public class TeamRepository {
                          .addOnFailureListener(listenerError);
 
     }
+
+    public void getLoggedInUserTeams (ValueEventListener listener) {
+        String currentUserId = firebaseAuth.getCurrentUser().getUid();
+
+        databaseReference.child("/users/" + currentUserId + "/teams").addListenerForSingleValueEvent(listener);
+    }
 }
