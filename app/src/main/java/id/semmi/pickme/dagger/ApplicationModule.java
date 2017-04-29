@@ -26,6 +26,9 @@ import id.semmi.pickme.team.addteam.AddTeamPresenter;
 import id.semmi.pickme.team.addteam.AddTeamPresenterImpl;
 import id.semmi.pickme.team.list.TeamPresenter;
 import id.semmi.pickme.team.list.TeamPresenterImpl;
+import id.semmi.pickme.vote.VoteRepository;
+import id.semmi.pickme.vote.add_vote.AddVotePresenter;
+import id.semmi.pickme.vote.add_vote.AddVotePresenterImpl;
 
 /**
  * Created by Semmiverian on 4/14/17.
@@ -100,5 +103,15 @@ public class ApplicationModule {
     @Provides
     public TeamPresenter teamPresenter (TeamRepository teamRepository) {
         return new TeamPresenterImpl(teamRepository);
+    }
+
+    @Provides
+    public VoteRepository voteRepository (Firebase firebase) {
+        return new VoteRepository(firebase);
+    }
+
+    @Provides
+    public AddVotePresenter addVotePresenter (VoteRepository voteRepository) {
+        return new AddVotePresenterImpl(voteRepository);
     }
 }

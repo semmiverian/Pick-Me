@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="id.semmi.pickme.vote.add_vote.AddVoteActivity"
+    tools:showIn="@layout/activity_add_vote"
+    android:background="@color/grayish"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        >
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/introduction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/howdy_please_tell_us_about_your_new_vote"
+            android:textAlignment="center"
+            android:textSize="22sp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/nameInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/introduction"
+            android:layout_marginTop="31dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/what_is_your_vote_name"
+            android:textSize="20sp" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/nameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameInfo"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:padding="15dp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/describeInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/nameInput"
+            android:layout_marginTop="25dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/describe_your_vote_purpose"
+            android:textSize="20sp" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/describeInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/describeInfo"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:padding="15dp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/optionInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/describeInput"
+            android:layout_marginTop="25dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/tell_us_about_your_available_vote_options"
+            android:textSize="20sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/addVoteRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/optionInfo" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/endDatePicker"
+            android:layout_below="@+id/addVoteRecyclerView"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="Deadline of this Vote"
+            android:textColor="@color/white" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/create_vote_button"
+            android:layout_below="@+id/endDatePicker"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:text="@string/create_my_vote"
+            android:textColor="@color/white" />
+
+
+    </RelativeLayout>
+</ScrollView>

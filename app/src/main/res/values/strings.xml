@@ -12,4 +12,10 @@
     <string name="invite_your_friends">Invite your Friends</string>
     <string name="create_my_team">Create My Team</string>
     <string name="title_activity_team_list">TeamList</string>
+    <string name="title_activity_add_vote">AddVoteActivity</string>
+    <string name="howdy_please_tell_us_about_your_new_vote">Howdy Please tell us about your new vote</string>
+    <string name="what_is_your_vote_name">What is your vote name</string>
+    <string name="describe_your_vote_purpose">Describe your vote purpose</string>
+    <string name="tell_us_about_your_available_vote_options">Tell us about your available vote options</string>
+    <string name="create_my_vote">Create My Vote</string>
 </resources>

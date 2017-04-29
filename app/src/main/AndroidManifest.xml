@@ -28,6 +28,10 @@
         <activity
             android:name=".team.list.TeamListActivity"
             android:label="@string/title_activity_team_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".vote.add_vote.AddVoteActivity"
+            android:label="@string/title_activity_add_vote"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

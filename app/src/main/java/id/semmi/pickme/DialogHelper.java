@@ -57,4 +57,13 @@ public class DialogHelper {
                 .onPositive(callbackPositive)
                 .show();
     }
+
+    public void inputDialog (String title, String content, int inputType, MaterialDialog.InputCallback callback) {
+        new MaterialDialog.Builder(context)
+                         .title(title)
+                         .content(content)
+                         .inputType(inputType)
+                         .input(content, null, callback)
+                         .show();
+    }
 }

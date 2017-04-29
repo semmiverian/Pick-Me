@@ -7,6 +7,7 @@ import id.semmi.pickme.login.LoginActivity;
 import id.semmi.pickme.register.RegisterActivity;
 import id.semmi.pickme.team.addteam.AddTeamActivity;
 import id.semmi.pickme.team.list.TeamListActivity;
+import id.semmi.pickme.vote.add_vote.AddVoteActivity;
 
 /**
  * Created by Semmiverian on 4/14/17.
@@ -20,5 +21,6 @@ public interface ApplicationComponent {
     void inject (RegisterActivity target);
     void inject (AddTeamActivity target);
     void inject (TeamListActivity target);
+    void inject (AddVoteActivity target);
 }
 
