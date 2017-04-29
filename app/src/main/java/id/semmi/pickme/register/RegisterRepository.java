@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -25,7 +26,12 @@ public class RegisterRepository {
 
     }
 
-    public RegisterRepository setDisplayName (String name) {
+    public void createUser (String email, String password, OnCompleteListener listener ) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(listener);
+    }
+
+    public RegisterRepository updateUserName(String name) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         if (user != null) {
@@ -43,10 +49,14 @@ public class RegisterRepository {
         return this;
     }
 
+
+
     private void save () {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         databaseReference.child("users/" + user.getUid())
                          .setValue(new User(user.getDisplayName(), user.getUid(), user.getEmail()));
     }
+
+
 }

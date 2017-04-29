@@ -6,7 +6,6 @@ import android.text.TextUtils;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
@@ -40,18 +39,17 @@ public class RegisterPresenterImpl implements RegisterPresenter {
             return;
         }
 
-        mFirebaseAuth.createUserWithEmailAndPassword(mView.getEmailAdress(), mView.getPassword())
-             .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
-                 @Override
-                 public void onComplete(@NonNull Task<AuthResult> task) {
-                     if (!task.isSuccessful()) {
-                         mView.showErrorMessage(task.getException().getMessage());
-                        return;
-                     }
-                     mView.onSuccessLoggedIn();
-                     registerRepository.setDisplayName(mView.getName());
-                 }
-             });
+        registerRepository.createUser(mView.getEmailAdress(), mView.getPassword(), new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if (!task.isSuccessful()) {
+                    mView.showErrorMessage(task.getException().getMessage());
+                    return;
+                }
+                mView.onSuccessLoggedIn();
+                registerRepository.updateUserName(mView.getName());
+            }
+        });
 
     }
 

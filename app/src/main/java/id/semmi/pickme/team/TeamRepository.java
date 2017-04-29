@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import id.semmi.pickme.firebase.Firebase;
 import id.semmi.pickme.model.User;
 import id.semmi.pickme.team.addteam.UserChip;
 
@@ -24,9 +25,9 @@ public class TeamRepository {
     private final FirebaseAuth firebaseAuth;
     private Map<String, Object> mappedUser;
 
-    public TeamRepository(DatabaseReference databaseReference, FirebaseAuth firebaseAuth) {
-        this.databaseReference = databaseReference;
-        this.firebaseAuth = firebaseAuth;
+    public TeamRepository(Firebase firebase) {
+        this.databaseReference = firebase.getDatabaseReference();
+        this.firebaseAuth = firebase.getFirebaseAuth();
         FirebaseUser loggedInUser = firebaseAuth.getCurrentUser();
         User user = new User(loggedInUser.getDisplayName(), loggedInUser.getUid(), loggedInUser.getEmail());
         mappedUser = user.userToMap();

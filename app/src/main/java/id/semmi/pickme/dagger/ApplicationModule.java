@@ -13,6 +13,8 @@ import dagger.Module;
 import dagger.Provides;
 import id.semmi.pickme.DialogHelper;
 import id.semmi.pickme.R;
+import id.semmi.pickme.firebase.Firebase;
+import id.semmi.pickme.firebase.FirebaseImpl;
 import id.semmi.pickme.login.LoginPresenter;
 import id.semmi.pickme.login.LoginPresenterImpl;
 import id.semmi.pickme.login.LoginRepository;
@@ -56,6 +58,11 @@ public class ApplicationModule {
     }
 
     @Provides
+    public Firebase firebaseContract (FirebaseAuth firebaseAuth, DatabaseReference databaseReference) {
+        return new FirebaseImpl(firebaseAuth, databaseReference);
+    }
+
+    @Provides
     public RegisterRepository registerRepository (FirebaseAuth firebaseAuth, DatabaseReference databaseReference) {
         return new RegisterRepository(firebaseAuth, databaseReference);
     }
@@ -81,8 +88,8 @@ public class ApplicationModule {
     }
 
     @Provides
-    public TeamRepository teamRepository (FirebaseAuth firebaseAuth, DatabaseReference databaseReference) {
-        return new TeamRepository(databaseReference, firebaseAuth);
+    public TeamRepository teamRepository (Firebase firebase) {
+        return new TeamRepository(firebase);
     }
 
     @Provides
