@@ -7,6 +7,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
  */
 
 public interface VoteRepository {
-    void createVoteOnTeam(String teamKey, Votes votes, OnCompleteListener listener);
+    void createNewVoteOnTeam(String teamKey, Votes votes, OnCompleteListener listener);
 
 }
