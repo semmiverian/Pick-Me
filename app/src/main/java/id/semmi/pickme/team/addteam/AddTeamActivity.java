@@ -68,7 +68,7 @@ public class AddTeamActivity extends AppCompatActivity implements AddTeamView {
 
     @Override
     public void fetchUsersData(List<UserChip> userChips) {
-        if (userChips != null || userChips.size() != 0) {
+        if (userChips.size() != 0) {
             chipsInput.setFilterableList(userChips);
         }
     }
