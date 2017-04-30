@@ -18,15 +18,19 @@ import id.semmi.pickme.firebase.FirebaseImpl;
 import id.semmi.pickme.login.LoginPresenter;
 import id.semmi.pickme.login.LoginPresenterImpl;
 import id.semmi.pickme.login.LoginRepository;
+import id.semmi.pickme.login.LoginRepositoryImpl;
 import id.semmi.pickme.register.RegisterPresenter;
 import id.semmi.pickme.register.RegisterPresenterImpl;
 import id.semmi.pickme.register.RegisterRepository;
+import id.semmi.pickme.register.RegisterRepositoryImpl;
 import id.semmi.pickme.team.TeamRepository;
+import id.semmi.pickme.team.TeamRepositoryImpl;
 import id.semmi.pickme.team.addteam.AddTeamPresenter;
 import id.semmi.pickme.team.addteam.AddTeamPresenterImpl;
 import id.semmi.pickme.team.list.TeamPresenter;
 import id.semmi.pickme.team.list.TeamPresenterImpl;
 import id.semmi.pickme.vote.VoteRepository;
+import id.semmi.pickme.vote.VoteRepositoryImpl;
 import id.semmi.pickme.vote.add_vote.AddVotePresenter;
 import id.semmi.pickme.vote.add_vote.AddVotePresenterImpl;
 
@@ -67,12 +71,12 @@ public class ApplicationModule {
 
     @Provides
     public RegisterRepository registerRepository (FirebaseAuth firebaseAuth, DatabaseReference databaseReference) {
-        return new RegisterRepository(firebaseAuth, databaseReference);
+        return new RegisterRepositoryImpl(firebaseAuth, databaseReference);
     }
 
     @Provides
     public LoginRepository loginRepository (FirebaseAuth firebaseAuth, DatabaseReference databaseReference) {
-        return new LoginRepository(firebaseAuth, databaseReference);
+        return new LoginRepositoryImpl(firebaseAuth, databaseReference);
     }
 
     @Provides @Singleton
@@ -92,7 +96,7 @@ public class ApplicationModule {
 
     @Provides
     public TeamRepository teamRepository (Firebase firebase) {
-        return new TeamRepository(firebase);
+        return new TeamRepositoryImpl(firebase);
     }
 
     @Provides
@@ -107,7 +111,7 @@ public class ApplicationModule {
 
     @Provides
     public VoteRepository voteRepository (Firebase firebase) {
-        return new VoteRepository(firebase);
+        return new VoteRepositoryImpl(firebase);
     }
 
     @Provides

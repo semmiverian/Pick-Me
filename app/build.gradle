@@ -41,6 +41,8 @@ dependencies {
     compile 'com.wdullaer:materialdatetimepicker:3.2.0'
 
     testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:2.+"
+
     annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     provided 'javax.annotation:jsr250-api:1.0'
