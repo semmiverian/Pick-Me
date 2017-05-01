@@ -58,17 +58,17 @@ public class AddTeamActivity extends AppCompatActivity implements AddTeamView {
     protected void onStart() {
         super.onStart();
         addTeamPresenter.setView(this);
-        addTeamPresenter.fetchUserChip(drawable);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        addTeamPresenter.fetchUserChip(drawable);
     }
 
     @Override
     public void fetchUsersData(List<UserChip> userChips) {
-        if (userChips.size() != 0) {
+        if (userChips.size() != 0 && !userChips.isEmpty()) {
             chipsInput.setFilterableList(userChips);
         }
     }

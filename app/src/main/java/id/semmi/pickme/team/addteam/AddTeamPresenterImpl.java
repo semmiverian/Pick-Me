@@ -77,7 +77,7 @@ public class AddTeamPresenterImpl implements AddTeamPresenter {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     if (!user.getUid().equals(userSnapshot.getKey())) {
                         UserChip userChip = userSnapshot.getValue(UserChip.class);
-                        userChips.add(new UserChip(userChip.getUuid(), userChip.getName(), userChip.getEmail(), drawable));
+                        userChips.add(new UserChip(userChip.getUuid(), userChip.getName(), userChip.getEmail(), null));
                     }
                 }
                 mAddTeamView.fetchUsersData(userChips);
