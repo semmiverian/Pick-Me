@@ -1,5 +1,10 @@
 package id.semmi.pickme.vote.vote_detail;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -9,6 +14,7 @@ import java.util.List;
 
 import id.semmi.pickme.vote.VoteRepository;
 import id.semmi.pickme.vote.Votes;
+import id.semmi.pickme.vote.add_vote.Vote;
 
 /**
  * Created by Semmiverian on 4/30/17.
@@ -17,8 +23,6 @@ import id.semmi.pickme.vote.Votes;
 public class DetailVotePresenterImpl implements DetailVotePresenter {
     private DetailVoteView detailVoteView;
     private VoteRepository voteRepository;
-    private String teamKey = "";
-    private String votesKey = "";
 
     public DetailVotePresenterImpl(VoteRepository voteRepository) {
         this.voteRepository = voteRepository;
@@ -41,10 +45,10 @@ public class DetailVotePresenterImpl implements DetailVotePresenter {
 
     @Override
     public void fetchVoteOptions() {
-        teamKey = "-Kiwf9icbQ5eETSYcwrB";
-        votesKey = "-KiwjptZZL3My_fCyWui";
+        String teamKey = "-Kj345HeYanjaiphpyVY";
+        String votesKey = "-Kj3IOoN2Nd1unc3PGob";
         if (!teamKey.equals("") && !votesKey.equals("")) {
-            voteRepository.fetchVote(this.teamKey, this.votesKey, new ValueEventListener() {
+            voteRepository.fetchVote(teamKey, votesKey, new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     detailVoteView.fetchVoteDetail(dataSnapshot.getValue(Votes.class));
@@ -56,6 +60,22 @@ public class DetailVotePresenterImpl implements DetailVotePresenter {
                 }
             });
         }
+    }
+
+    @Override
+    public void setUserVote(final Vote vote, int position) {
+        String teamKey = "-Kj345HeYanjaiphpyVY";
+        String votesKey = "-Kj3IOoN2Nd1unc3PGob";
+        voteRepository.setUserVote(vote, teamKey, votesKey, position, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (!task.isSuccessful()) {
+                    detailVoteView.onError(task.getException().getMessage());
+                    return;
+                }
+                detailVoteView.onSuccess("Successfully vote on " + vote.getText());
+            }
+        });
     }
 
 }

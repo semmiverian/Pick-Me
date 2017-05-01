@@ -36,7 +36,7 @@ public class AddVotePresenterImpl implements AddVotePresenter {
 
     @Override
     public void createVote(List<Vote> mVotes, String chosenDate) {
-        String team = "-Kiwf9icbQ5eETSYcwrB";
+        String team = "-Kj345HeYanjaiphpyVY";
         Votes votes = new Votes(addVoteView.getVoteName(), addVoteView.getVoteDescription(), mVotes, chosenDate);
         voteRepository.createNewVoteOnTeam(team, votes, new OnCompleteListener() {
             @Override

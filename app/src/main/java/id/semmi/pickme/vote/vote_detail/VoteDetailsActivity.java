@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ import id.semmi.pickme.model.User;
 import id.semmi.pickme.vote.Votes;
 import id.semmi.pickme.vote.add_vote.Vote;
 
-public class VoteDetailsActivity extends AppCompatActivity implements DetailVoteView {
+public class VoteDetailsActivity extends AppCompatActivity implements DetailVoteView, VoteListAdapter.OnChoseItemListener {
     private static final String TAG = VoteDetailsActivity.class.toString();
     @BindView(R.id.voteRecyclerView) RecyclerView voteRecyclerView;
     @BindView(R.id.voteCloseInfo) AppCompatButton voteCloseInfo;
@@ -53,12 +54,14 @@ public class VoteDetailsActivity extends AppCompatActivity implements DetailVote
         mVoteListAdapter = new VoteListAdapter(this, mVotes);
         voteRecyclerView.setAdapter(mVoteListAdapter);
         voteRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mVoteListAdapter.setOnItemClickListener(this);
+
         mUserAdapter = new UserAdapter(this, mUsers);
         notAlreadyVoteRecyclerView.setAdapter(mUserAdapter);
         notAlreadyVoteRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
         alreadyVoteRecyclerView.setAdapter(mUserAdapter);
         alreadyVoteRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
     }
 
     @Override
@@ -101,9 +104,11 @@ public class VoteDetailsActivity extends AppCompatActivity implements DetailVote
             mUserAdapter.notifyItemInserted(pos);
             pos++;
         }
+    }
 
-
-
-
+    @Override
+    public void onChoseItemListener(View v, int position) {
+        Log.d(TAG, "onChoseItemListener: " + mVotes.get(position).getText());
+        detailVotePresenter.setUserVote(mVotes.get(position), position);
     }
 }

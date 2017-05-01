@@ -18,8 +18,9 @@ import id.semmi.pickme.vote.add_vote.Vote;
 
 
 public class VoteListAdapter extends RecyclerView.Adapter<VoteListAdapter.ViewHolder> {
-    private final Context mContext;
-    private final List<Vote> mVoteList;
+    private Context mContext;
+    private List<Vote> mVoteList;
+    private OnChoseItemListener listener;
 
     public VoteListAdapter(Context mContext, List<Vote> mVoteList) {
         this.mContext = mContext;
@@ -47,10 +48,27 @@ public class VoteListAdapter extends RecyclerView.Adapter<VoteListAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.vote_text)
         AppCompatTextView voteText;
+        @BindView(R.id.cardView) CardView cardView;
 
         ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
+        @OnClick(R.id.cardView)
+        void onCardClick (View v) {
+            int position = getLayoutPosition();
+            if (listener != null) {
+                listener.onChoseItemListener(v, position);
+            }
+        }
+    }
+
+    interface OnChoseItemListener {
+        void onChoseItemListener(View v, int position);
+    }
+
+    public void setOnItemClickListener(OnChoseItemListener listener) {
+        this.listener = listener;
     }
 }
