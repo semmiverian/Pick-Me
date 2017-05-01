@@ -48,6 +48,8 @@ public class TeamRepositoryImpl implements TeamRepository {
         databaseReference.child("teams/" + key).setValue(team);
         userMap.put("/users/" + currentUserId + "/teams/" + key, team);
 
+        userChips.add(new UserChip(currentUserId, firebaseAuth.getCurrentUser().getDisplayName(),firebaseAuth.getCurrentUser().getEmail(), null));
+
         for (UserChip userChip : userChips) {
             String notificationKey = databaseReference.child("notifications/" + userChip.getUuid()).push().getKey();
             String userKey = databaseReference.child("teams/" + key + "/user").push().getKey();
