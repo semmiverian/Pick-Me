@@ -33,6 +33,8 @@ import id.semmi.pickme.vote.VoteRepository;
 import id.semmi.pickme.vote.VoteRepositoryImpl;
 import id.semmi.pickme.vote.add_vote.AddVotePresenter;
 import id.semmi.pickme.vote.add_vote.AddVotePresenterImpl;
+import id.semmi.pickme.vote.vote_detail.DetailVotePresenter;
+import id.semmi.pickme.vote.vote_detail.DetailVotePresenterImpl;
 
 /**
  * Created by Semmiverian on 4/14/17.
@@ -117,5 +119,10 @@ public class ApplicationModule {
     @Provides
     public AddVotePresenter addVotePresenter (VoteRepository voteRepository) {
         return new AddVotePresenterImpl(voteRepository);
+    }
+
+    @Provides
+    public DetailVotePresenter detailVotePresenter (VoteRepository voteRepository) {
+        return new DetailVotePresenterImpl(voteRepository);
     }
 }

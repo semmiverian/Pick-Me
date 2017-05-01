@@ -32,6 +32,7 @@ import id.semmi.pickme.dagger.PickMeApplication;
 import id.semmi.pickme.register.RegisterActivity;
 import id.semmi.pickme.team.list.TeamListActivity;
 import id.semmi.pickme.vote.add_vote.AddVoteActivity;
+import id.semmi.pickme.vote.vote_detail.VoteDetailsActivity;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, LoginView {
     private static final int RC_SIGN_IN = 13112;
@@ -148,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             materialDialog.dismiss();
         }
         // todo temporary
-        Intent nextActivity = new Intent(this, AddVoteActivity.class);
+        Intent nextActivity = new Intent(this, VoteDetailsActivity.class);
 //        Intent nextActivity = new Intent(this, TeamListActivity.class);
         startActivity(nextActivity);
 

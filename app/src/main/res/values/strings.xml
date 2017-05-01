@@ -18,4 +18,9 @@
     <string name="describe_your_vote_purpose">Describe your vote purpose</string>
     <string name="tell_us_about_your_available_vote_options">Tell us about your available vote options</string>
     <string name="create_my_vote">Create My Vote</string>
+    <string name="title_activity_vote_details_actiivity">Vote Details</string>
+    <string name="open_discussion">Open Discussion</string>
+    <string name="open_vote_result_details">Open Vote Result Details</string>
+    <string name="member_who_already_vote">Member Who Already Vote</string>
+    <string name="member_who_still_not_vote">Member who still not vote</string>
 </resources>

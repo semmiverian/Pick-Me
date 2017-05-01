@@ -18,7 +18,7 @@ import id.semmi.pickme.model.User;
 
 public class VoteRepositoryImpl implements VoteRepository {
     private Firebase firebase;
-
+    private Votes votes;
     public VoteRepositoryImpl(Firebase firebase) {
         this.firebase = firebase;
     }
@@ -52,4 +52,10 @@ public class VoteRepositoryImpl implements VoteRepository {
             }
         });
     }
+
+    @Override
+    public void fetchVote(String teamKey, String voteKey, ValueEventListener listener) {
+        firebase.getDatabaseReference().child("/teams/" + teamKey + "/votes/" + voteKey).addListenerForSingleValueEvent(listener);
+    }
+
 }

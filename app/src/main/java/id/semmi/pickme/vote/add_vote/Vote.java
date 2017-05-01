@@ -10,6 +10,11 @@ public class Vote {
 
     private String text;
 
+
+    public  Vote () {
+
+    }
+
     public Vote(String text) {
 
         this.text = text;

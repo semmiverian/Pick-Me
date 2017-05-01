@@ -1,7 +1,9 @@
 package id.semmi.pickme.vote;
 
+import java.util.HashMap;
 import java.util.List;
 
+import id.semmi.pickme.model.User;
 import id.semmi.pickme.vote.add_vote.Vote;
 
 /**
@@ -14,6 +16,7 @@ public class Votes {
     private String text;
     private List<Vote> votes;
     private String endDate;
+    private HashMap<String, User> pendingVoteUsers;
 
     public Votes() {
 
@@ -26,6 +29,15 @@ public class Votes {
         this.text = text;
         this.votes = votes;
         this.endDate = endDate;
+    }
+
+    public Votes(String name, String text, List<Vote> votes, String endDate, HashMap<String, User> pendingVoteUsers) {
+
+        this.name = name;
+        this.text = text;
+        this.votes = votes;
+        this.endDate = endDate;
+        this.pendingVoteUsers = pendingVoteUsers;
     }
 
     public String getName() {
@@ -59,6 +71,16 @@ public class Votes {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
+
+    public HashMap<String, User> getPendingVoteUsers() {
+        return pendingVoteUsers;
+    }
+
+    public void setPendingVoteUsers(HashMap<String, User> pendingVoteUsers) {
+        this.pendingVoteUsers = pendingVoteUsers;
+    }
 }
+
+
 
 

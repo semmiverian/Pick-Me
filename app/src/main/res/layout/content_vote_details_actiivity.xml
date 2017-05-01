@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/margin.top"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="id.semmi.pickme.vote.vote_detail.VoteDetailsActivity"
+    tools:showIn="@layout/activity_vote_details_actiivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="Iphone or Mac"
+            android:layout_centerHorizontal="true"
+            android:textSize="22sp"
+            android:fontFamily="sans-serif"
+            android:id="@+id/voteTitle"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/member_who_still_not_vote"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif"
+            android:id="@+id/voteDescription"
+            android:layout_below="@id/voteTitle"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/voteRecyclerView"
+            android:layout_below="@id/voteDescription"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/voteCloseInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/voteRecyclerView"
+            android:background="@color/white"
+            tools:text="Vote will be closed in 2 Days"
+            android:fontFamily="sans-serif"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/openDiscussionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/voteCloseInfo"
+            android:background="@color/white"
+            android:text="@string/open_discussion"
+            android:fontFamily="sans-serif"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/detailButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/openDiscussionButton"
+            android:background="@color/white"
+            android:text="@string/open_vote_result_details"
+            android:fontFamily="sans-serif"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detailButtons"
+            android:layout_marginTop="10dp"
+            android:text="@string/member_who_already_vote"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif"
+            android:id="@+id/alreadyVoteInfo"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/alreadyVoteRecyclerView"
+            android:layout_below="@+id/alreadyVoteInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/alreadyVoteRecyclerView"
+            android:layout_marginTop="10dp"
+            android:text="@string/member_who_still_not_vote"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif"
+            android:id="@+id/notAlreadyVoteInfo"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/notAlreadyVoteRecyclerView"
+            android:layout_below="@+id/notAlreadyVoteInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</ScrollView>
