@@ -1,5 +1,6 @@
 package id.semmi.pickme.vote.add_vote;
 
+import java.util.HashMap;
 import java.util.List;
 
 import id.semmi.pickme.model.User;
@@ -11,7 +12,9 @@ import id.semmi.pickme.model.User;
 public class Vote {
 
     private String text;
-    private List<User> users;
+
+    private HashMap<String, User> users;
+    private Long percentage;
 
     public Vote() {
 
@@ -29,11 +32,20 @@ public class Vote {
         this.text = text;
     }
 
-    public List<User> getUsers() {
+
+    public HashMap<String, User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(HashMap<String, User> users) {
         this.users = users;
+    }
+
+    public Long getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(Long percentage) {
+        this.percentage = percentage;
     }
 }

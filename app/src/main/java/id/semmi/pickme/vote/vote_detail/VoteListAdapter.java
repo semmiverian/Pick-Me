@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ public class VoteListAdapter extends RecyclerView.Adapter<VoteListAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         Vote vote = mVoteList.get(position);
         holder.voteText.setText(vote.getText());
+        String percentageCount =  (vote.getPercentage() == null) ? "0%" : vote.getPercentage().toString() + "%";
+        holder.votePercentage.setText(percentageCount);
     }
 
     @Override
@@ -49,6 +52,7 @@ public class VoteListAdapter extends RecyclerView.Adapter<VoteListAdapter.ViewHo
         @BindView(R.id.vote_text)
         AppCompatTextView voteText;
         @BindView(R.id.cardView) CardView cardView;
+        @BindView(R.id.votePercentage) AppCompatTextView votePercentage;
 
         ViewHolder(View itemView) {
             super(itemView);
