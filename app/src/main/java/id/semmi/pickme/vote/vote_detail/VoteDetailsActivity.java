@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class VoteDetailsActivity extends AppCompatActivity implements DetailVote
     private List<User> mUsers = new ArrayList<>();
     private VoteListAdapter mVoteListAdapter;
     private UserAdapter mUserAdapter;
+    private boolean allowedToVote;
 
 
     @Override
@@ -107,8 +109,18 @@ public class VoteDetailsActivity extends AppCompatActivity implements DetailVote
     }
 
     @Override
+    public boolean allowedToVotes(boolean status) {
+        this.allowedToVote = status;
+        Log.d(TAG, "allowedToVotes: " + status);
+        return status;
+    }
+
+    @Override
     public void onChoseItemListener(View v, int position) {
         Log.d(TAG, "onChoseItemListener: " + mVotes.get(position).getText());
-        detailVotePresenter.setUserVote(mVotes.get(position), position);
+        if (this.allowedToVote) {
+            detailVotePresenter.setUserVote(mVotes.get(position), position);
+        }
+        Toast.makeText(this, "You've Already Voted ^_^", Toast.LENGTH_SHORT).show();
     }
 }

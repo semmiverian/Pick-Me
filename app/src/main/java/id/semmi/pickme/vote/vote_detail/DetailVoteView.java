@@ -11,5 +11,5 @@ import id.semmi.pickme.vote.Votes;
 
 public interface DetailVoteView extends BasicView {
     void fetchVoteDetail (Votes votes);
-
+    boolean allowedToVotes (boolean status);
 }

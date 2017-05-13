@@ -61,6 +61,13 @@ public class VoteRepositoryImpl implements VoteRepository {
     }
 
     @Override
+    public void allowedToVote(String teamKey, String votesKey, ValueEventListener listener) {
+        DatabaseReference databaseReference = firebase.getDatabaseReference().child("/teams/" + teamKey + "/votes/"+ votesKey + "/alreadyVoteUsers/" + firebase.getFirebaseAuth().getCurrentUser().getUid());
+
+        databaseReference.addListenerForSingleValueEvent(listener);
+    }
+
+    @Override
     public void setUserVote(final Vote vote, final String teamKey, final String voteKey, final int position, final OnCompleteListener listener) {
         firebase.getDatabaseReference().child("/teams/" + teamKey + "/votes/" + voteKey + "/allUsers/").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

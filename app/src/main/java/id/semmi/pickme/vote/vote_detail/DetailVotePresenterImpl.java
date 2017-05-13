@@ -31,6 +31,7 @@ public class DetailVotePresenterImpl implements DetailVotePresenter {
     @Override
     public void resume() {
         this.fetchVoteOptions();
+        this.isAllowedToVote();
     }
 
     @Override
@@ -74,6 +75,23 @@ public class DetailVotePresenterImpl implements DetailVotePresenter {
                     return;
                 }
                 detailVoteView.onSuccess("Successfully vote on " + vote.getText());
+            }
+        });
+    }
+
+    @Override
+    public void isAllowedToVote() {
+        String teamKey = "-Kj345HeYanjaiphpyVY";
+        String votesKey = "-Kj3IOoN2Nd1unc3PGob";
+        voteRepository.allowedToVote(teamKey, votesKey, new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                detailVoteView.allowedToVotes(!dataSnapshot.exists());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
