@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +22,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import id.semmi.pickme.DialogHelper;
 import id.semmi.pickme.R;
 import id.semmi.pickme.dagger.PickMeApplication;
 import id.semmi.pickme.model.User;
@@ -43,6 +46,8 @@ public class VoteDetailsActivity extends AppCompatActivity implements DetailVote
     private VoteListAdapter mVoteListAdapter;
     private UserAdapter mUserAdapter;
     private boolean allowedToVote;
+    private DialogHelper dialogHelper;
+    private MaterialDialog materialDialog;
 
 
     @Override
@@ -64,6 +69,8 @@ public class VoteDetailsActivity extends AppCompatActivity implements DetailVote
 
         alreadyVoteRecyclerView.setAdapter(mUserAdapter);
         alreadyVoteRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        dialogHelper = new DialogHelper(this);
     }
 
     @Override
@@ -81,11 +88,19 @@ public class VoteDetailsActivity extends AppCompatActivity implements DetailVote
 
     @Override
     public void onSuccess(String message) {
+        if (materialDialog.isShowing()) {
+            materialDialog.dismiss();
+        }
+        dialogHelper.singlePositiveDialog("Success", message, "Ok", dialogHelper.dismissDialog());
 
     }
 
     @Override
     public void onError(String message) {
+        if (materialDialog.isShowing()) {
+            materialDialog.dismiss();
+        }
+        dialogHelper.singlePositiveDialog("Success", message, "Ok", dialogHelper.dismissDialog());
 
     }
 
@@ -111,16 +126,16 @@ public class VoteDetailsActivity extends AppCompatActivity implements DetailVote
     @Override
     public boolean allowedToVotes(boolean status) {
         this.allowedToVote = status;
-        Log.d(TAG, "allowedToVotes: " + status);
         return status;
     }
 
     @Override
     public void onChoseItemListener(View v, int position) {
-        Log.d(TAG, "onChoseItemListener: " + mVotes.get(position).getText());
         if (this.allowedToVote) {
+            materialDialog = dialogHelper.loadingDialog("Processing", "Inserting Your vote ");
             detailVotePresenter.setUserVote(mVotes.get(position), position);
+            return;
         }
-        Toast.makeText(this, "You've Already Voted ^_^", Toast.LENGTH_SHORT).show();
+        dialogHelper.singlePositiveDialog("Success", "You've Already Voted in this vote", "Ok", dialogHelper.dismissDialog());
     }
 }

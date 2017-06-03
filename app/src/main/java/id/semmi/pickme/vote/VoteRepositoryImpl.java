@@ -1,5 +1,7 @@
 package id.semmi.pickme.vote;
 
+import android.util.Log;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -9,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import id.semmi.pickme.firebase.Firebase;
 import id.semmi.pickme.model.User;
@@ -16,13 +19,11 @@ import id.semmi.pickme.vote.add_vote.Vote;
 
 public class VoteRepositoryImpl implements VoteRepository {
     private Firebase firebase;
-    private Votes votes;
-    private long allUserCount;
+    private long alreadyVotedCount;
 
     public VoteRepositoryImpl(Firebase firebase) {
         this.firebase = firebase;
     }
-
 
     @Override
     public void createNewVoteOnTeam(final String teamKey, Votes votes, OnCompleteListener listener) {
@@ -69,24 +70,14 @@ public class VoteRepositoryImpl implements VoteRepository {
 
     @Override
     public void setUserVote(final Vote vote, final String teamKey, final String voteKey, final int position, final OnCompleteListener listener) {
-        firebase.getDatabaseReference().child("/teams/" + teamKey + "/votes/" + voteKey + "/allUsers/").addListenerForSingleValueEvent(new ValueEventListener() {
+
+        firebase.getDatabaseReference().child("/teams/" + teamKey + "/votes/" + voteKey + "/alreadyVoteUsers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                allUserCount = dataSnapshot.getChildrenCount();
-                firebase.getDatabaseReference().child("/teams/" + teamKey + "/votes/" + voteKey + "/votes/" + position + "/users/").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        long count = dataSnapshot.getChildrenCount();
-                        long finalPercentage = (count != 0) ? Math.round(count / allUserCount * 100) : 100;
-                        updateDatabaseChildren(vote, teamKey, voteKey, position, finalPercentage, listener);
+                alreadyVotedCount = dataSnapshot.getChildrenCount();
+                String basePath = "/teams/" + teamKey + "/votes/" + voteKey;
 
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                updateAllVotesOption(basePath, alreadyVotedCount, listener);
             }
 
             @Override
@@ -94,17 +85,32 @@ public class VoteRepositoryImpl implements VoteRepository {
 
             }
         });
+
     }
 
-    private void updateDatabaseChildren(Vote vote, String teamKey, String voteKey, int position, long percentage, OnCompleteListener listener) {
-        FirebaseUser firebaseUser = firebase.getFirebaseAuth().getCurrentUser();
-        HashMap<String, Object> map = new HashMap<>();
+    private void updateAllVotesOption(final String basePath, final long alreadyVotedCount, final OnCompleteListener listener) {
+        final HashMap<String, Object> map = new HashMap<>();
+        firebase.getDatabaseReference().child(basePath + "/votes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FirebaseUser authenticatedUser = firebase.getFirebaseAuth().getCurrentUser();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Vote vote = snapshot.getValue(Vote.class);
+                    int votedUserInTheVote = (vote.getUsers() != null) ? vote.getUsers().size() : 0;
+                    int newPercentage = (int) (votedUserInTheVote / alreadyVotedCount) * 100;
+                    map.put(basePath + "/votes/" + snapshot.getKey() + "/percentage/", newPercentage);
+                    map.put(basePath + "/votes/" + snapshot.getKey() + "/users/" + authenticatedUser.getUid(), authenticatedUser);
+                }
+                // remove user state from not voted collection to already voted collection
+                map.put(basePath + "/pendingVoteUsers/" + authenticatedUser.getUid(), null);
+                map.put(basePath + "/alreadyVoteUsers/" + authenticatedUser.getUid(), authenticatedUser);
+                firebase.getDatabaseReference().updateChildren(map).addOnCompleteListener(listener);
+            }
 
-        map.put("/teams/" + teamKey + "/votes/" + voteKey + "/pendingVoteUsers/" + firebaseUser.getUid(), null);
-        map.put("/teams/" + teamKey + "/votes/" + voteKey + "/alreadyVoteUsers/" + firebaseUser.getUid(), firebaseUser);
-        map.put("/teams/" + teamKey + "/votes/" + voteKey + "/votes/" + position + "/percentage", percentage);
-        map.put("/teams/" + teamKey + "/votes/" + voteKey + "/votes/" + position + "/users/" + firebaseUser.getUid(), firebaseUser);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        firebase.getDatabaseReference().updateChildren(map).addOnCompleteListener(listener);
+            }
+        });
     }
 }

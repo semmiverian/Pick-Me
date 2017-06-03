@@ -46,8 +46,8 @@ public class DetailVotePresenterImpl implements DetailVotePresenter {
 
     @Override
     public void fetchVoteOptions() {
-        String teamKey = "-Kj345HeYanjaiphpyVY";
-        String votesKey = "-Kj3IOoN2Nd1unc3PGob";
+        String teamKey = "-Klieo8qDmDra4rev12V";
+        String votesKey = "-KlihGJlJ3obuAQq1Hre";
         if (!teamKey.equals("") && !votesKey.equals("")) {
             voteRepository.fetchVote(teamKey, votesKey, new ValueEventListener() {
                 @Override
@@ -65,11 +65,12 @@ public class DetailVotePresenterImpl implements DetailVotePresenter {
 
     @Override
     public void setUserVote(final Vote vote, int position) {
-        String teamKey = "-Kj345HeYanjaiphpyVY";
-        String votesKey = "-Kj3IOoN2Nd1unc3PGob";
+        String teamKey = "-Klieo8qDmDra4rev12V";
+        String votesKey = "-KlihGJlJ3obuAQq1Hre";
         voteRepository.setUserVote(vote, teamKey, votesKey, position, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                Log.d("tes", "onComplete: " + task.isComplete());
                 if (!task.isSuccessful()) {
                     detailVoteView.onError(task.getException().getMessage());
                     return;
@@ -81,8 +82,8 @@ public class DetailVotePresenterImpl implements DetailVotePresenter {
 
     @Override
     public void isAllowedToVote() {
-        String teamKey = "-Kj345HeYanjaiphpyVY";
-        String votesKey = "-Kj3IOoN2Nd1unc3PGob";
+        String teamKey = "-Klieo8qDmDra4rev12V";
+        String votesKey = "-KlihGJlJ3obuAQq1Hre";
         voteRepository.allowedToVote(teamKey, votesKey, new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -91,7 +92,6 @@ public class DetailVotePresenterImpl implements DetailVotePresenter {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }

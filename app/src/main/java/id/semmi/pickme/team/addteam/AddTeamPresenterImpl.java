@@ -2,6 +2,7 @@ package id.semmi.pickme.team.addteam;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -68,6 +69,7 @@ public class AddTeamPresenterImpl implements AddTeamPresenter {
 
     @Override
     public void fetchUserChip(final Drawable drawable) {
+        Log.d("aaa", "fetchUserChip: hit" );
         teamRepository.findUser(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -75,11 +77,14 @@ public class AddTeamPresenterImpl implements AddTeamPresenter {
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    Log.d("aaa", "onDataChange: " + !user.getUid().equals(userSnapshot.getKey()));
                     if (!user.getUid().equals(userSnapshot.getKey())) {
                         UserChip userChip = userSnapshot.getValue(UserChip.class);
+                        Log.d("aaa", "onDataChange: " + userChip.getName());
                         userChips.add(new UserChip(userChip.getUuid(), userChip.getName(), userChip.getEmail(), null));
                     }
                 }
+                Log.d("aaa", "onDataChange: " + userChips.size());
                 mAddTeamView.fetchUsersData(userChips);
             }
 

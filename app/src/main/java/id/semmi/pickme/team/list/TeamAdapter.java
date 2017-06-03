@@ -23,6 +23,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
 
     private Context mContext;
     private List<Team> mTeams;
+    private OnTeamClickListener listener;
 
     public TeamAdapter(Context mContext, List<Team> mTeams) {
         this.mContext = mContext;
@@ -56,6 +57,24 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
          ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getLayoutPosition();
+
+                        listener.onTeamClick(v, position);
+                    }
+                }
+            });
         }
+    }
+
+    public void onTeamClickListener (OnTeamClickListener listener) {
+        this.listener = listener;
+    }
+
+    interface OnTeamClickListener{
+        void onTeamClick(View v, int position);
     }
 }

@@ -151,6 +151,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         // todo temporary
         Intent nextActivity = new Intent(this, VoteDetailsActivity.class);
 //        Intent nextActivity = new Intent(this, TeamListActivity.class);
+//        Intent nextActivity = new Intent(this, AddVoteActivity.class);
         startActivity(nextActivity);
 
         Log.d(TAG, "onSuccessLoggedIn: " + loggedInName);

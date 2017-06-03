@@ -30,7 +30,7 @@ import id.semmi.pickme.dagger.PickMeApplication;
 import id.semmi.pickme.team.Team;
 import id.semmi.pickme.team.addteam.AddTeamActivity;
 
-public class TeamListActivity extends AppCompatActivity implements TeamListView {
+public class TeamListActivity extends AppCompatActivity implements TeamListView, TeamAdapter.OnTeamClickListener {
     private static final String TAG = TeamListActivity.class.toString();
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.fab) FloatingActionButton fab;
@@ -51,6 +51,7 @@ public class TeamListActivity extends AppCompatActivity implements TeamListView 
         ((PickMeApplication) getApplication()).getApplicationComponent().inject(this);
 
         mTeamAdapter = new TeamAdapter(this, mTeams);
+        mTeamAdapter.onTeamClickListener(this);
         recyclerView.setAdapter(mTeamAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -110,4 +111,8 @@ public class TeamListActivity extends AppCompatActivity implements TeamListView 
         startActivity(addNewTeamIntent);
     }
 
+    @Override
+    public void onTeamClick(View v, int position) {
+
+    }
 }

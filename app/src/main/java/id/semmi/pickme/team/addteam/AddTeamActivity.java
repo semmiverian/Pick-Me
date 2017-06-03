@@ -15,6 +15,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.pchmn.materialchips.ChipsInput;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -42,6 +43,7 @@ public class AddTeamActivity extends AppCompatActivity implements AddTeamView {
     private Unbinder unbinder;
     private DialogHelper dialogHelper;
     private MaterialDialog materialDialog;
+    private List<UserChip> mUserListsChip = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class AddTeamActivity extends AppCompatActivity implements AddTeamView {
         ((PickMeApplication) getApplication()).getApplicationComponent().inject(this);
         unbinder = ButterKnife.bind(this);
         dialogHelper = new DialogHelper(this);
+        team_name_input.requestFocus();
     }
 
     @Override
@@ -64,13 +67,24 @@ public class AddTeamActivity extends AppCompatActivity implements AddTeamView {
     protected void onResume() {
         super.onResume();
         addTeamPresenter.fetchUserChip(drawable);
+//        mUserListsChip.add(new UserChip("1", "semmi", "aa", null));
+//        chipsInput.setFilterableList(mUserListsChip);
     }
 
     @Override
     public void fetchUsersData(List<UserChip> userChips) {
-        if (userChips.size() != 0 && !userChips.isEmpty()) {
-            chipsInput.setFilterableList(userChips);
+        Log.d(TAG, "fetchUsersData: " + (userChips.size() != 0 && !userChips.isEmpty()));
+        for (UserChip chip : userChips) {
+            Log.d(TAG, "fetchUsersData: " + chip.getName());
+
+            mUserListsChip.add(new UserChip(chip.getUuid(), chip.getName(), chip.getEmail(), null));
         }
+
+        chipsInput.setFilterableList(mUserListsChip);
+//        if (userChips.size() != 0 && !userChips.isEmpty()) {
+//
+//            chipsInput.setFilterableList(userChips);
+//        }
     }
 
     @Override

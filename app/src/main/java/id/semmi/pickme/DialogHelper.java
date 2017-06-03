@@ -1,7 +1,9 @@
 package id.semmi.pickme;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 /**
@@ -65,5 +67,14 @@ public class DialogHelper {
                          .inputType(inputType)
                          .input(content, null, callback)
                          .show();
+    }
+
+    public MaterialDialog.SingleButtonCallback dismissDialog () {
+        return new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                dialog.dismiss();
+            }
+        };
     }
 }
