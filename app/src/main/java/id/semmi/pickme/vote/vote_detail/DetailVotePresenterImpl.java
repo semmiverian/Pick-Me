@@ -47,7 +47,7 @@ public class DetailVotePresenterImpl implements DetailVotePresenter {
     @Override
     public void fetchVoteOptions() {
         String teamKey = "-Klieo8qDmDra4rev12V";
-        String votesKey = "-KlihGJlJ3obuAQq1Hre";
+        String votesKey = "-KliyCrJ1OALPubQ6eDE";
         if (!teamKey.equals("") && !votesKey.equals("")) {
             voteRepository.fetchVote(teamKey, votesKey, new ValueEventListener() {
                 @Override
@@ -66,7 +66,7 @@ public class DetailVotePresenterImpl implements DetailVotePresenter {
     @Override
     public void setUserVote(final Vote vote, int position) {
         String teamKey = "-Klieo8qDmDra4rev12V";
-        String votesKey = "-KlihGJlJ3obuAQq1Hre";
+        String votesKey = "-KliyCrJ1OALPubQ6eDE";
         voteRepository.setUserVote(vote, teamKey, votesKey, position, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -83,7 +83,7 @@ public class DetailVotePresenterImpl implements DetailVotePresenter {
     @Override
     public void isAllowedToVote() {
         String teamKey = "-Klieo8qDmDra4rev12V";
-        String votesKey = "-KlihGJlJ3obuAQq1Hre";
+        String votesKey = "-KliyCrJ1OALPubQ6eDE";
         voteRepository.allowedToVote(teamKey, votesKey, new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

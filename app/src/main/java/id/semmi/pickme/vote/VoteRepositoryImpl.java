@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -76,8 +77,8 @@ public class VoteRepositoryImpl implements VoteRepository {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 alreadyVotedCount = dataSnapshot.getChildrenCount();
                 String basePath = "/teams/" + teamKey + "/votes/" + voteKey;
-
-                updateAllVotesOption(basePath, alreadyVotedCount, listener);
+                // plus one to include the user that would like to vote
+                updateAllVotesOption(basePath, alreadyVotedCount += 1, listener, vote);
             }
 
             @Override
@@ -88,7 +89,7 @@ public class VoteRepositoryImpl implements VoteRepository {
 
     }
 
-    private void updateAllVotesOption(final String basePath, final long alreadyVotedCount, final OnCompleteListener listener) {
+    private void updateAllVotesOption(final String basePath, final long alreadyVotedCount, final OnCompleteListener listener, final Vote chosenVote) {
         final HashMap<String, Object> map = new HashMap<>();
         firebase.getDatabaseReference().child(basePath + "/votes").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -96,10 +97,18 @@ public class VoteRepositoryImpl implements VoteRepository {
                 FirebaseUser authenticatedUser = firebase.getFirebaseAuth().getCurrentUser();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Vote vote = snapshot.getValue(Vote.class);
-                    int votedUserInTheVote = (vote.getUsers() != null) ? vote.getUsers().size() : 0;
-                    int newPercentage = (int) (votedUserInTheVote / alreadyVotedCount) * 100;
-                    map.put(basePath + "/votes/" + snapshot.getKey() + "/percentage/", newPercentage);
-                    map.put(basePath + "/votes/" + snapshot.getKey() + "/users/" + authenticatedUser.getUid(), authenticatedUser);
+                    int votedUserInTheVote;
+                    votedUserInTheVote = (vote.getUsers() != null) ? vote.getUsers().size() : 0;
+
+                    if (chosenVote.getText().equals(vote.getText())) {
+                        votedUserInTheVote += 1;
+                        map.put(basePath + "/votes/" + snapshot.getKey() + "/users/" + authenticatedUser.getUid(), authenticatedUser);
+                    }
+
+                    float newPercentage = (float) votedUserInTheVote / (float) alreadyVotedCount * 100;
+                    DecimalFormat numberFormat = new DecimalFormat("#.0");
+                    Log.d("tes", "onDataChange: " + numberFormat.format(newPercentage));
+                    map.put(basePath + "/votes/" + snapshot.getKey() + "/percentage/", numberFormat.format(newPercentage));
                 }
                 // remove user state from not voted collection to already voted collection
                 map.put(basePath + "/pendingVoteUsers/" + authenticatedUser.getUid(), null);
